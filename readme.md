@@ -10,8 +10,10 @@ Click on Layers and choose "Add a layer", and "Provide a layer version
 ARN" and enter the following ARN.
 
 ```
-arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:3
+arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:4
 ```
+
+Current version: chrome-aws-lambda v1.19.0 & Chromium v77.0.3844.0
 
 ## Available regions
 
