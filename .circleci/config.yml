@@ -3,18 +3,175 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@0.1.13
 
-jobs:
+commands:
   publish:
-    executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/install
       - aws-cli/configure
       - run: ./publish.sh
 
+jobs:
+  ap_northeast_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: ap-northeast-1
+    steps:
+      - publish
+
+  ap_northeast_2:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: ap-northeast-2
+    steps:
+      - publish
+
+  ap_south_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: ap-south-1
+    steps:
+      - publish
+
+  ap_southeast_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: ap-southeast-1
+    steps:
+      - publish
+
+  ap_southeast_2:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: ap-southeast-2
+    steps:
+      - publish
+
+  ca_central_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: ca-central-1
+    steps:
+      - publish
+
+  eu_north_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: eu-north-1
+    steps:
+      - publish
+
+  eu_central_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: eu-central-1
+    steps:
+      - publish
+
+  eu_west_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: eu-west-1
+    steps:
+      - publish
+
+  eu_west_2:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: eu-west-2
+    steps:
+      - publish
+
+  eu_west_3:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: eu-west-3
+    steps:
+      - publish
+
+  sa_east_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: sa-east-1
+    steps:
+      - publish
+
+  us_east_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: us-east-1
+    steps:
+      - publish
+
+  us_east_2:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: us-east-2
+    steps:
+      - publish
+
+  us_west_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: us-west-1
+    steps:
+      - publish
+
+  us_west_2:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: us-west-2
+    steps:
+      - publish
+
 workflows:
   version: 2
   publish:
     jobs:
-      - publish:
+      - ap_northeast_1:
+          context: chrome-aws-lambda-layer
+
+      - ap_northeast_2:
+          context: chrome-aws-lambda-layer
+
+      - ap_south_1:
+          context: chrome-aws-lambda-layer
+
+      - ap_southeast_1:
+          context: chrome-aws-lambda-layer
+
+      - ap_southeast_2:
+          context: chrome-aws-lambda-layer
+
+      - ca_central_1:
+          context: chrome-aws-lambda-layer
+
+      - eu_north_1:
+          context: chrome-aws-lambda-layer
+
+      - eu_central_1:
+          context: chrome-aws-lambda-layer
+
+      - eu_west_1:
+          context: chrome-aws-lambda-layer
+
+      - eu_west_2:
+          context: chrome-aws-lambda-layer
+
+      - eu_west_3:
+          context: chrome-aws-lambda-layer
+
+      - sa_east_1:
+          context: chrome-aws-lambda-layer
+
+      - us_east_1:
+          context: chrome-aws-lambda-layer
+
+      - us_east_2:
+          context: chrome-aws-lambda-layer
+
+      - us_west_1:
+          context: chrome-aws-lambda-layer
+
+      - us_west_2:
           context: chrome-aws-lambda-layer
