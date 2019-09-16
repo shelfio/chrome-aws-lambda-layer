@@ -7,8 +7,7 @@ commands:
   publish:
     steps:
       - checkout
-      - aws-cli/install
-      - aws-cli/configure
+      - aws-cli/setup
       - run: ./publish.sh
 
 jobs:
