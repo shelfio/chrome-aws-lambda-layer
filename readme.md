@@ -13,7 +13,7 @@ ARN" and enter the following ARN.
 arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:8
 ```
 
-Current version: chrome-aws-lambda v2.0.0 & Chromium v79.0.3945.0
+Current version: chrome-aws-lambda v2.0.1 & Chromium v79.0.3945.0
 
 ## Available regions
 
