@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LIB_VERSION=2.0.0
+LIB_VERSION=2.0.1
 CHROMIUM_VERSION=79.0.3945.0
 LAYER_NAME='chrome-aws-lambda'
 
