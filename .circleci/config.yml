@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@0.1.18
+  aws-cli: circleci/aws-cli@0.1.19
 
 commands:
   publish:
