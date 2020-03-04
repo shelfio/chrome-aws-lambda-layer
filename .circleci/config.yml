@@ -88,6 +88,13 @@ jobs:
     steps:
       - publish
 
+  me_south_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: me-south-1
+    steps:
+      - publish
+
   sa_east_1:
     executor: aws-cli/default
     environment:
@@ -198,6 +205,13 @@ workflows:
                 - master
 
       - eu_west_3:
+          context: chrome-aws-lambda-layer
+          filters:
+            branches:
+              only:
+                - master
+
+      - me_south_1:
           context: chrome-aws-lambda-layer
           filters:
             branches:

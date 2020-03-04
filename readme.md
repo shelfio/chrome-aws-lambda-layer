@@ -28,6 +28,7 @@ Current version: chrome-aws-lambda v2.0.1 & Chromium v79.0.3945.0
 * eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda:8`
 * eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda:8`
 * eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda:8`
+* me-south-1: `arn:aws:lambda:me-south-1:764866452798:layer:chrome-aws-lambda:1`
 * sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda:8`
 * us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:10`
 * us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda:8`
