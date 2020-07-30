@@ -7,7 +7,7 @@ LAYER_NAME='chrome-aws-lambda'
 LAYER_VERSION=$(
   aws lambda publish-layer-version --region "$TARGET_REGION" \
     --layer-name $LAYER_NAME \
-    --zip-file fileb:///home/circleci/project/chrome_aws_lambda.zip \
+    --zip-file fileb://home/circleci/project/chrome_aws_lambda.zip \
     --description "chrome-aws-lambda v${LIB_VERSION} & Chromium v${CHROMIUM_VERSION}" \
     --query Version \
     --output text
