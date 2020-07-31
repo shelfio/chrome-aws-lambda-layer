@@ -23,5 +23,5 @@ aws lambda add-layer-version-permission \
       --description "$LAYER_DESCRIPTION" \
       --query Version \
       --output text \
-      --content S3Bucket="$S3_BUCKET_NAME",S3Key="$LAYER_FILENAME"
+      --content S3Bucket="$S3_BUCKET_NAME",S3Key=chrome_aws_lambda.zip
   )"
