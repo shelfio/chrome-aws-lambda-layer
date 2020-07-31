@@ -74,6 +74,13 @@ jobs:
     steps:
       - publish
 
+  eu_south_1:
+    executor: aws-cli/default
+    environment:
+      TARGET_REGION: eu-south-1
+    steps:
+      - publish
+
   eu_central_1:
     executor: aws-cli/default
     environment:
@@ -205,6 +212,13 @@ workflows:
                 - master
 
       - eu_north_1:
+          context: public-lambda-layers
+          filters:
+            branches:
+              only:
+                - master
+
+      - eu_south_1:
           context: public-lambda-layers
           filters:
             branches:
