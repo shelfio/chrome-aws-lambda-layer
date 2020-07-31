@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export AWS_DEFAULT_REGION="$TARGET_REGION"
+aws configure set default.region "$TARGET_REGION" --profile default
 
 LIB_VERSION=3.1.1
 CHROMIUM_VERSION=83.0.4103.0
