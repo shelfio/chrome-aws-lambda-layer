@@ -170,19 +170,19 @@ workflows:
               only:
                 - master
 
-      - af_south_1:
-          context: public-lambda-layers
-          filters:
-            branches:
-              only:
-                - master
+#      - af_south_1:
+#          context: public-lambda-layers
+#          filters:
+#            branches:
+#              only:
+#                - master
 
-      - ap_east_1:
-          context: public-lambda-layers
-          filters:
-            branches:
-              only:
-                - master
+#      - ap_east_1:
+#          context: public-lambda-layers
+#          filters:
+#            branches:
+#              only:
+#                - master
 
       - ap_northeast_2:
           context: public-lambda-layers
@@ -226,12 +226,12 @@ workflows:
               only:
                 - master
 
-      - eu_south_1:
-          context: public-lambda-layers
-          filters:
-            branches:
-              only:
-                - master
+#      - eu_south_1:
+#          context: public-lambda-layers
+#          filters:
+#            branches:
+#              only:
+#                - master
 
       - eu_central_1:
           context: public-lambda-layers
@@ -261,12 +261,12 @@ workflows:
               only:
                 - master
 
-      - me_south_1:
-          context: public-lambda-layers
-          filters:
-            branches:
-              only:
-                - master
+#      - me_south_1:
+#          context: public-lambda-layers
+#          filters:
+#            branches:
+#              only:
+#                - master
 
       - sa_east_1:
           context: public-lambda-layers
