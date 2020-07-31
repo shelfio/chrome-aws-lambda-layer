@@ -8,6 +8,14 @@ commands:
     steps:
       - checkout
       - aws-cli/setup
+      - run:
+          name: Install Git LFS
+          command: |
+            wget -O lfs.deb https://packagecloud.io/github/git-lfs/packages/debian/stretch/git-lfs_2.7.2_amd64.deb/download
+            sudo dpkg -i lfs.deb
+
+            git lfs install
+            git lfs pull
       - run: ./publish.sh
 
 jobs:
