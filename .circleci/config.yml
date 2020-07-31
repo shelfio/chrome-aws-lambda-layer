@@ -135,119 +135,119 @@ workflows:
   publish:
     jobs:
       - ap_northeast_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - ap_northeast_2:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - ap_south_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - ap_southeast_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - ap_southeast_2:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - ca_central_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - eu_north_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - eu_central_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - eu_west_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - eu_west_2:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - eu_west_3:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - me_south_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - sa_east_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - us_east_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - us_east_2:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - us_west_1:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
                 - master
 
       - us_west_2:
-          context: chrome-aws-lambda-layer
+          context: public-lambda-layers
           filters:
             branches:
               only:
