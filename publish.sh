@@ -7,7 +7,7 @@ LAYER_DESCRIPTION="chrome-aws-lambda v${LIB_VERSION} & Chromium v${CHROMIUM_VERS
 S3_BUCKET_NAME=shelf-lambda-layers-"$TARGET_REGION"
 
 aws s3 cp \
-  ./chrome_aws_lambda.zip \
+  /home/circleci/project/chrome_aws_lambda.zip \
   s3://"$S3_BUCKET_NAME"/chrome_aws_lambda.zip
 
 aws lambda add-layer-version-permission \
