@@ -10,10 +10,10 @@ Click on Layers and choose "Add a layer", and "Provide a layer version
 ARN" and enter the following ARN.
 
 ```
-arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:22
+arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:23
 ```
 
-Current version: chrome-aws-lambda v5.3.0 & Chromium v86.0.4240.0
+Current version: chrome-aws-lambda v9.1.0 & Chromium v91.0.4469.0
 
 ## Available regions
 
@@ -29,7 +29,7 @@ Current version: chrome-aws-lambda v5.3.0 & Chromium v86.0.4240.0
 * eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda:20`
 * eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda:20`
 * sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda:20`
-* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:22`
+* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:23`
 * us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda:20`
 * us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda:20`
 * us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda:20`
