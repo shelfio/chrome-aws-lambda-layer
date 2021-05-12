@@ -10,29 +10,29 @@ Click on Layers and choose "Add a layer", and "Provide a layer version
 ARN" and enter the following ARN.
 
 ```
-arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:23
+arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:24
 ```
 
 Current version: chrome-aws-lambda v9.1.0 & Chromium v91.0.4469.0
 
 ## Available regions
 
-* ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda:20`
-* ap-northeast-2: `arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda:20`
-* ap-south-1: `arn:aws:lambda:ap-south-1:764866452798:layer:chrome-aws-lambda:20`
-* ap-southeast-1: `arn:aws:lambda:ap-southeast-1:764866452798:layer:chrome-aws-lambda:20`
-* ap-southeast-2: `arn:aws:lambda:ap-southeast-2:764866452798:layer:chrome-aws-lambda:20`
-* ca-central-1: `arn:aws:lambda:ca-central-1:764866452798:layer:chrome-aws-lambda:20`
-* eu-north-1: `arn:aws:lambda:eu-north-1:764866452798:layer:chrome-aws-lambda:20`
-* eu-central-1: `arn:aws:lambda:eu-central-1:764866452798:layer:chrome-aws-lambda:20`
-* eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda:20`
-* eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda:20`
-* eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda:20`
-* sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda:20`
-* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:23`
-* us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda:20`
-* us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda:20`
-* us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda:20`
+* ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda:22`
+* ap-northeast-2: `arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda:22`
+* ap-south-1: `arn:aws:lambda:ap-south-1:764866452798:layer:chrome-aws-lambda:22`
+* ap-southeast-1: `arn:aws:lambda:ap-southeast-1:764866452798:layer:chrome-aws-lambda:22`
+* ap-southeast-2: `arn:aws:lambda:ap-southeast-2:764866452798:layer:chrome-aws-lambda:22`
+* ca-central-1: `arn:aws:lambda:ca-central-1:764866452798:layer:chrome-aws-lambda:22`
+* eu-north-1: `arn:aws:lambda:eu-north-1:764866452798:layer:chrome-aws-lambda:22`
+* eu-central-1: `arn:aws:lambda:eu-central-1:764866452798:layer:chrome-aws-lambda:22`
+* eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda:22`
+* eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda:22`
+* eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda:22`
+* sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda:22`
+* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:24`
+* us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda:22`
+* us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda:22`
+* us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda:22`
 
 
 ## Update
