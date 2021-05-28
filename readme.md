@@ -39,7 +39,7 @@ Current version: chrome-aws-lambda v9.1.0 & Chromium v91.0.4469.0
 
 1. Follow steps at https://github.com/alixaxel/chrome-aws-lambda#aws-lambda-layer
 2. Copy `chrome_aws_lambda.zip` to this repo
-3. Put proper version inside `publish.sh` & `README.md`
+3. Put proper version inside `publish.sh` & `README.md` (append `[ci skip]` suffix to the commit message to avoid republishing)
 4. Push
 
 ## License
