@@ -2,8 +2,8 @@
 
 aws configure set default.region "$TARGET_REGION" --profile default
 
-LIB_VERSION=9.1.0
-CHROMIUM_VERSION=91.0.4469.0
+LIB_VERSION=10.1.0
+CHROMIUM_VERSION=92.0.4512.0
 LAYER_NAME='chrome-aws-lambda'
 LAYER_DESCRIPTION="chrome-aws-lambda v${LIB_VERSION} & Chromium v${CHROMIUM_VERSION}"
 S3_BUCKET_NAME=shelf-lambda-layers-"$TARGET_REGION"
