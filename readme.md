@@ -39,7 +39,7 @@ Current version: `@sparticuz/chrome-aws-lambda` v14.3.0 & Chromium v103.0.5058.0
 
 ## Update
 
-1. Follow steps at https://github.com/alixaxel/chrome-aws-lambda#aws-lambda-layer
+1. Grab the latest artifact from https://github.com/Sparticuz/chrome-aws-lambda/actions/workflows/aws.yml?query=branch%3Amaster
 2. Copy `chrome_aws_lambda.zip` to this repo
 3. Put proper version inside `publish.sh` & `README.md` (append `[ci skip]` suffix to the commit message to avoid republishing)
 4. Push
