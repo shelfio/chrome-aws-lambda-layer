@@ -1,6 +1,6 @@
 # Google Chrome for AWS Lambda as a layer
 
-> 56 MB Google Chrome to fit inside AWS Lambda Layer compressed with Brotli
+> 53 MB Google Chrome to fit inside AWS Lambda Layer compressed with Brotli
 
 [chrome-aws-lambda](https://github.com/Sparticuz/chrome-aws-lambda) published as a Lambda Layer.
 
