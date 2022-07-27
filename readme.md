@@ -17,6 +17,12 @@ arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:31
 
 Current version: `@sparticuz/chrome-aws-lambda` v14.3.0 & Chromium v103.0.5058.0
 
+When importing the module within lambda, make sure you import `@sparticuz/chrome-aws-lambda` not `chrome-aws-lambda`
+
+```
+const chromium = require("@sparticuz/chrome-aws-lambda");
+```
+
 ## Available regions
 
 * ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda:31`
