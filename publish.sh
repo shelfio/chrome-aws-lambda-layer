@@ -9,8 +9,8 @@ LAYER_DESCRIPTION="@sparticuz/chromium v${LIB_VERSION} & Chromium v${CHROMIUM_VE
 S3_BUCKET_NAME=shelf-lambda-layers-"$TARGET_REGION"
 
 aws s3 cp \
-  /home/circleci/project/chrome_aws_lambda.zip \
-  s3://"$S3_BUCKET_NAME"/chrome_aws_lambda.zip
+  /home/circleci/project/chromium.zip \
+  s3://"$S3_BUCKET_NAME"/chromium.zip
 
 aws lambda add-layer-version-permission \
   --region "$TARGET_REGION" \
@@ -25,5 +25,5 @@ aws lambda add-layer-version-permission \
       --description "$LAYER_DESCRIPTION" \
       --query Version \
       --output text \
-      --content S3Bucket="$S3_BUCKET_NAME",S3Key=chrome_aws_lambda.zip
+      --content S3Bucket="$S3_BUCKET_NAME",S3Key=chromium.zip
   )"

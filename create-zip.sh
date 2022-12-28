@@ -1,4 +1,4 @@
-unzip chrome_aws_lambda.zip
+unzip chromium.zip
 
 npx del-cli "nodejs/node_modules/**/@types/**" \
   "nodejs/node_modules/**/*.d.ts" \
@@ -10,5 +10,5 @@ npx del-cli "nodejs/node_modules/**/@types/**" \
   "nodejs/node_modules/agent-base/src/*.ts" \
   "nodejs/**/.DS_Store"
 
-rm chrome_aws_lambda.zip
-zip -r chrome_aws_lambda.zip -9 nodejs
+rm chromium.zip
+zip -r chromium.zip -9 nodejs
