@@ -1,10 +1,10 @@
 # Google Chrome for AWS Lambda as a layer
 
-> 53 MB Google Chrome to fit inside AWS Lambda Layer compressed with Brotli
+> 58 MB Google Chrome to fit inside AWS Lambda Layer compressed with Brotli
 
-[chrome-aws-lambda](https://github.com/Sparticuz/chrome-aws-lambda) published as a Lambda Layer.
+[Sparticuz/chromium](https://github.com/Sparticuz/chromium) published as a Lambda Layer.
 
-Works with Node.js 16x. Has Chromium v103.0.5058.0.
+Works with Node.js 16x. Has Chromium v109.0.0.0.
 
 ## Getting Started
 
@@ -15,12 +15,12 @@ ARN" and enter the following ARN.
 arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:31
 ```
 
-Current version: `@sparticuz/chrome-aws-lambda` v14.3.0 & Chromium v103.0.5058.0
+Current version: `@sparticuz/chrome-aws-lambda` & Chromium v109.0.0
 
-When importing the module within lambda, make sure you import `@sparticuz/chrome-aws-lambda` not `chrome-aws-lambda`
+When importing the module within lambda, make sure you import `@sparticuz/chromium` not `chrome-aws-lambda`
 
-```
-const chromium = require("@sparticuz/chrome-aws-lambda");
+```js
+const chromium = require('@sparticuz/chromium');
 ```
 
 ## Available regions
