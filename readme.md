@@ -45,8 +45,8 @@ const chromium = require("@sparticuz/chrome-aws-lambda");
 
 ## Update
 
-1. Grab the latest artifact from https://github.com/Sparticuz/chrome-aws-lambda/actions/workflows/aws.yml?query=branch%3Amaster
-2. Copy `chrome_aws_lambda.zip` to this repo
+1. Grab the latest artifact from https://github.com/Sparticuz/chromium/actions/workflows/aws.yml
+2. Copy `chromium.zip` to this repo
 3. Run `create-zip.sh` to reduce the zip size
 4. Put proper version inside `publish.sh` & `README.md` (append `[ci skip]` suffix to the commit message to avoid republishing)
 5. Push
