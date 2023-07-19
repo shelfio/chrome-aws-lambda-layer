@@ -22,6 +22,7 @@ aws lambda add-layer-version-permission \
     aws lambda publish-layer-version \
       --region "$TARGET_REGION" \
       --layer-name "$LAYER_NAME" \
+      --compatible-architectures x86_64 \
       --description "$LAYER_DESCRIPTION" \
       --query Version \
       --output text \
