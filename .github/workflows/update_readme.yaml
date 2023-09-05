@@ -1,0 +1,72 @@
+name: Update README
+
+on:
+  workflow_run:
+    workflows: ["Deploy Layers"]
+    types:
+      - completed
+
+jobs:
+  update_readme:
+  if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  runs-on: ubuntu-latest
+  env:
+    AWS_REGIONS: |
+      us-east-1
+      us-east-2
+      us-west-1
+      us-west-2
+      ap-east-1
+      ap-south-1
+      ap-northeast-2
+      ap-southeast-1
+      ap-southeast-2
+      ap-northeast-1
+      ca-central-1
+      eu-central-1
+      eu-west-1
+      eu-west-2
+      eu-west-3
+      eu-north-1
+      me-south-1
+      sa-east-1
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Get Latest Release URL and Tag Version
+      run: |
+        JSON_RESPONSE=$(curl -s https://api.github.com/repos/Sparticuz/chromium/releases/latest)
+        TAG_VERSION=$(echo $JSON_RESPONSE | grep -Po '"tag_name": "\K[^"]+')
+        echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
+
+    - name: Update README
+      run: |
+        TAG_VERSION=${{ env.TAG_VERSION }}
+        ARN_BASE="arn:aws:lambda:"
+        ARN_SUFFIX=":764866452798:layer:chrome-aws-lambda:"
+
+        sed -i -e "s|Has Chromium v[0-9\.]*|Has Chromium v$TAG_VERSION|g" README.md
+        sed -i -e "s|@sparticuz/chrome-aws-lambda & Chromium v[0-9\.]*|@sparticuz/chrome-aws-lambda & Chromium v$TAG_VERSION|g" README.md
+
+        for REGION in $AWS_REGIONS
+        do
+          LAYER_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda --region $REGION --query 'LayerVersions[0].LayerVersionArn' --output text | grep -oE '[0-9]+$')
+          ARN="$ARN_BASE$REGION$ARN_SUFFIX$LAYER_VERSION"
+          sed -i -e "s|arn:aws:lambda:$REGION:[0-9]*:layer:chrome-aws-lambda:[0-9]*|$ARN|g" README.md
+        done
+
+    - name: Commit and Push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add README.md
+        git commit -m "Update README with new version details [ci skip]"
+        git push
