@@ -39,8 +39,7 @@ jobs:
           ARN_BASE="arn:aws:lambda:"
           ARN_SUFFIX=":764866452798:layer:chrome-aws-lambda:"
 
-          sed -i -e "s|Has Chromium v[0-9\.]*|Has Chromium v$TAG_VERSION|g" readme.md
-          sed -i -e "s|@sparticuz/chrome-aws-lambda & Chromium v[0-9\.]*|@sparticuz/chrome-aws-lambda & Chromium $TAG_VERSION|g" readme.md
+          sed -i -e "s|Has Chromium v[0-9\.]*|Has Chromium $TAG_VERSION|g" readme.md
 
           for REGION in ${{ env.AWS_REGIONS }}; do
             LAYER_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda --region $REGION --query 'LayerVersions[0].LayerVersionArn' --output text | grep -oE '[0-9]+$')

@@ -4,7 +4,7 @@
 
 [Sparticuz/chromium](https://github.com/Sparticuz/chromium) published as a Lambda Layer.
 
-Works with Node.js 16x. Has Chromium vv116.0.0
+Tested with Node.js 16x/18x. Has Chromium v116.0.0
 
 ## Getting Started
 
