@@ -43,14 +43,6 @@ const chromium = require('@sparticuz/chromium');
 * us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda:33`
 
 
-## Update
-
-1. Grab the latest artifact from https://github.com/Sparticuz/chromium/actions/workflows/aws.yml
-2. Copy `chromium.zip` to this repo
-3. Run `create-zip.sh` to reduce the zip size
-4. Put proper version inside `publish.sh` & `README.md` (append `[ci skip]` suffix to the commit message to avoid republishing)
-5. Push
-
 ## License
 
 MIT © [Shelf](https://shelf.io)

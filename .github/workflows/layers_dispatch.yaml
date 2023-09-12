@@ -54,7 +54,11 @@ jobs:
           echo "FILEPATH=$FILEPATH" >> $GITHUB_ENV
 
       - name: Upload to S3
-        run: aws s3 cp ${{ env.FILEPATH  }} s3://${{ env.S3_BUCKET_NAME }}/${{ env.FILENAME }}
+        run: |
+          for REGION in ${{ env.AWS_REGIONS }}; do
+            BUCKET_NAME="${{ env.S3_BUCKET_NAME }}-$REGION"
+            aws s3 cp ${{ env.FILEPATH  }} s3://$BUCKET_NAME/${{ env.FILENAME }}
+          done
 
       - name: Publish to AWS Regions with Permissions
         run: |
