@@ -4,7 +4,7 @@
 
 [Sparticuz/chromium](https://github.com/Sparticuz/chromium) published as a Lambda Layer.
 
-Works with Node.js 16x. Has Chromium vv116.0.0
+Works with Node.js 16x. Has Chromium v116.0.0
 
 ## Getting Started
 
@@ -14,8 +14,6 @@ ARN" and enter the following ARN.
 ```
 arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:35
 ```
-
-Current version: `@sparticuz/chrome-aws-lambda` & Chromium v109.0.0
 
 When importing the module within lambda, make sure you import `@sparticuz/chromium` not `chrome-aws-lambda`
 
