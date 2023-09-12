@@ -66,26 +66,25 @@ jobs:
         run: |
           for REGION in ${{ env.AWS_REGIONS }}; do
             BUCKET_NAME="${{ env.S3_BUCKET_NAME }}-$REGION"
+
             aws configure set region $REGION
-            aws lambda publish-layer-version \
+
+            NEW_VERSION_NUMBER=$(aws lambda publish-layer-version \
               --layer-name chrome-aws-lambda \
               --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.FILENAME }} \
               --region $REGION \
               --compatible-architecture x86_64 \
               --description "@sparticuz/chromium v${{ env.TAG_VERSION }} & Chromium v${{ env.TAG_VERSION }}" \
-              --policy '{
-                "Version": "2012-10-17",
-                "Statement": [
-                  {
-                    "Effect": "Allow",
-                    "Principal": {
-                      "AWS": "*"
-                    },
-                    "Action": "lambda:GetLayerVersion",
-                    "Resource": "*"
-                  }
-                ]
-              }'
+              --query Version \
+              --output text)
+
+            aws lambda add-layer-version-permission \
+              --region "$REGION" \
+              --layer-name chrome-aws-lambda \
+              --statement-id sid1 \
+              --action lambda:GetLayerVersion \
+              --principal '*' \
+              --version-number $NEW_VERSION_NUMBER
             echo "Published and permissions added for ${{ env.FILENAME }} in $REGION"
           done
 
