@@ -1,10 +1,13 @@
 name: Update README
 
 on:
-  workflow_run:
-    workflows: ["Deploy Layers"]
-    types:
-      - completed
+  push:
+    branches:
+      - master
+#  workflow_run:
+#    workflows: ["Deploy Layers"]
+#    types:
+#      - completed
 
 jobs:
   update_readme:
@@ -40,6 +43,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
       - name: Get Latest Release URL and Tag Version
         run: |
