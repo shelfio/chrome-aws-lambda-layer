@@ -69,24 +69,28 @@ jobs:
 
             aws configure set region $REGION
 
-            NEW_VERSION_NUMBER=$(aws lambda publish-layer-version \
-              --layer-name chrome-aws-lambda \
-              --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.FILENAME }} \
-              --region $REGION \
-              --compatible-architecture x86_64 \
-              --description "@sparticuz/chromium v${{ env.TAG_VERSION }} & Chromium v${{ env.TAG_VERSION }}" \
-              --query Version \
-              --output text)
+            {
+              NEW_VERSION_NUMBER=$(aws lambda publish-layer-version \
+                --layer-name chrome-aws-lambda \
+                --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.FILENAME }} \
+                --region $REGION \
+                --compatible-architecture x86_64 \
+                --description "@sparticuz/chromium v${{ env.TAG_VERSION }} & Chromium v${{ env.TAG_VERSION }}" \
+                --query Version \
+                --output text)
 
-            aws lambda add-layer-version-permission \
-              --region "$REGION" \
-              --layer-name chrome-aws-lambda \
-              --statement-id sid1 \
-              --action lambda:GetLayerVersion \
-              --principal '*' \
-              --version-number $NEW_VERSION_NUMBER
-            echo "Published and permissions added for ${{ env.FILENAME }} in $REGION"
+              aws lambda add-layer-version-permission \
+                --region "$REGION" \
+                --layer-name chrome-aws-lambda \
+                --statement-id sid1 \
+                --action lambda:GetLayerVersion \
+                --principal '*' \
+                --version-number $NEW_VERSION_NUMBER
+              echo "Published and permissions added for ${{ env.FILENAME }} in $REGION"
+            } &
           done
+          wait
+
 
       - name: Commit Tag Version
         run: |
