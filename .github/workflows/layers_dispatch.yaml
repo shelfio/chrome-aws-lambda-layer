@@ -63,9 +63,10 @@ jobs:
       - name: Publish to AWS Regions with Permissions
         run: |
           for REGION in ${{ env.AWS_REGIONS }}; do
+            BUCKET_NAME="${{ env.S3_BUCKET_NAME }}-$REGION"
             aws lambda publish-layer-version \
               --layer-name chrome-aws-lambda \
-              --content S3Bucket=${{ env.S3_BUCKET_NAME }},S3Key=${{ env.FILENAME }} \
+              --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.FILENAME }} \
               --region $REGION \
               --compatible-architecture x86_64 \
               --description "@sparticuz/chromium v${{ env.TAG_VERSION }} & Chromium v${{ env.TAG_VERSION }}" \
