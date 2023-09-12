@@ -1,18 +1,18 @@
 name: Update README
 
 on:
-  push:
-    branches:
-      - master
-#  workflow_run:
-#    workflows: ["Deploy Layers"]
-#    types:
-#      - completed
+#  push:
+#    branches:
+#      - master
+  workflow_run:
+    workflows: ["Deploy Layers"]
+    types:
+      - completed
 
 jobs:
   update_readme:
     runs-on: ubuntu-latest
-#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       AWS_REGIONS: "us-east-1 us-east-2 us-west-1 us-west-2 ca-central-1 eu-central-1 eu-west-1 eu-west-2 eu-west-3 eu-north-1 ap-northeast-1 ap-northeast-2 ap-southeast-1 ap-southeast-2 ap-south-1 sa-east-1"
 

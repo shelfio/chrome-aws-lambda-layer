@@ -1,6 +1,9 @@
 name: Deploy Layers
 
 on:
+#  push:
+#    branches:
+#      - master
   schedule:
     - cron: '0 0 * * *' # This will run the workflow daily at midnight
 
