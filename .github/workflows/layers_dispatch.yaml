@@ -1,0 +1,87 @@
+name: Deploy Layers
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # This will run the workflow daily at midnight
+
+env:
+  AWS_REGIONS: "us-east-1 us-east-2 us-west-1 us-west-2 ca-central-1 eu-central-1 eu-west-1 eu-west-2 eu-west-3 eu-north-1 ap-northeast-1 ap-northeast-2 ap-southeast-1 ap-southeast-2 ap-south-1 sa-east-1 af-south-1"
+  S3_BUCKET_NAME: "shelf-lambda-layers"
+
+jobs:
+  check_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Get Previous Tag Version
+        id: prev_tag_version
+        run: echo "::set-output name=tag::$(cat .tag_version || echo '')"
+
+      - name: Get Latest Release URL and Tag Version
+        id: latest_release
+        run: |
+          JSON_RESPONSE=$(curl -s https://api.github.com/repos/Sparticuz/chromium/releases/latest)
+          LATEST_RELEASE_URL=$(echo $JSON_RESPONSE | grep -Po '"zipball_url": "\K[^"]+')
+          TAG_VERSION=$(echo $JSON_RESPONSE | grep -Po '"tag_name": "\K[^"]+')
+          if [[ "$TAG_VERSION" == "${{ steps.prev_tag_version.outputs.tag }}" ]]; then
+            echo "Skipping as the tag version is the same as the previous run."
+            exit 78
+          fi
+          echo "LATEST_RELEASE_URL=$LATEST_RELEASE_URL" >> $GITHUB_ENV
+          echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
+          echo "FILENAME=chromium-$TAG_VERSION.zip" >> $GITHUB_ENV
+
+      - name: Update Tag Version
+        run: echo ${{ env.TAG_VERSION }} > .tag_version
+
+      - name: Download Latest Release
+        run: |
+          curl -LO ${{ env.LATEST_RELEASE_URL }}
+          FILEPATH=$(basename ${{ env.LATEST_RELEASE_URL }})
+          echo "FILEPATH=$FILEPATH" >> $GITHUB_ENV
+
+      - name: Upload to S3
+        run: aws s3 cp ${{ env.FILEPATH  }} s3://${{ env.S3_BUCKET_NAME }}/${{ env.FILENAME }}
+
+      - name: Publish to AWS Regions with Permissions
+        run: |
+          for REGION in ${{ env.AWS_REGIONS }}; do
+            aws lambda publish-layer-version \
+              --layer-name chrome-aws-lambda \
+              --content S3Bucket=${{ env.S3_BUCKET_NAME }},S3Key=${{ env.FILENAME }} \
+              --region $REGION \
+              --compatible-architecture x86_64 \
+              --description "@sparticuz/chromium v${{ env.TAG_VERSION }} & Chromium v${{ env.TAG_VERSION }}" \
+              --policy '{
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "AWS": "*"
+                    },
+                    "Action": "lambda:GetLayerVersion",
+                    "Resource": "*"
+                  }
+                ]
+              }'
+            echo "Published and permissions added for ${{ env.FILENAME }} in $REGION"
+          done
+
+      - name: Commit Tag Version
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .tag_version
+          git commit -m "Update tag version to ${{ env.TAG_VERSION }}"
+          git push
