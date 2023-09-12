@@ -58,8 +58,9 @@ jobs:
           for REGION in ${{ env.AWS_REGIONS }}; do
             BUCKET_NAME="${{ env.S3_BUCKET_NAME }}-$REGION"
             aws configure set region $REGION
-            aws s3 cp ${{ env.FILEPATH  }} s3://$BUCKET_NAME/${{ env.FILENAME }}
+            aws s3 cp ${{ env.FILEPATH  }} s3://$BUCKET_NAME/${{ env.FILENAME }} &
           done
+          wait
 
       - name: Publish to AWS Regions with Permissions
         run: |
