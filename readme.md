@@ -21,6 +21,28 @@ When importing the module within lambda, make sure you import `@sparticuz/chromi
 const chromium = require('@sparticuz/chromium');
 ```
 
+**package.json**
+
+- `@sparticuz/chrome-aws-lambda` marked as a dependency
+- `puppeteer-core` marked as a dependency
+
+**lambda container settings**:
+
+- x86_64 architecture
+- > =1024mb memory
+- `@sparticuz/chrome-aws-lambda` marked as an externalModule in the bundling settings
+- A lambda layer marked like so (this is CDK code, but convert to SAM or whatever at will):
+
+```ts
+layers: [LayerVersion.fromLayerVersionArn(this, 'chromium-lambda-layer',
+  'arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:35'
+)]
+```
+
+**In the deployed lambda code**
+You can just use a regular ES6 or CommonJS import statement for `@sparticuz/chrome-aws-lambda`, and just use as
+indicated.
+
 ## Available regions
 
 * ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda:35`
@@ -39,7 +61,6 @@ const chromium = require('@sparticuz/chromium');
 * us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda:35`
 * us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda:35`
 * us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda:35`
-
 
 ## License
 
