@@ -23,14 +23,14 @@ const chromium = require('@sparticuz/chromium');
 
 **package.json**
 
-- `@sparticuz/chrome-aws-lambda` marked as a dependency
+- `@sparticuz/chromium` marked as a dependency
 - `puppeteer-core` marked as a dependency
 
 **lambda container settings**:
 
 - x86_64 architecture
 - > =1024mb memory
-- `@sparticuz/chrome-aws-lambda` marked as an externalModule in the bundling settings
+- `@sparticuz/chromium` marked as an externalModule in the bundling settings
 - A lambda layer marked like so (this is CDK code, but convert to SAM or whatever at will):
 
 ```ts
