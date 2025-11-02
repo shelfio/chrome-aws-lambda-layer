@@ -34,7 +34,7 @@ jobs:
         id: latest_release
         run: |
           JSON_RESPONSE=$(curl -s https://api.github.com/repos/Sparticuz/chromium/releases/latest)
-          LATEST_RELEASE_URL=$(echo $JSON_RESPONSE | grep -Po '"browser_download_url": "\K[^"]+' | awk 'NR==1')
+          LATEST_RELEASE_URL=$(echo $JSON_RESPONSE | grep -Po '"browser_download_url": "\K[^"]+x64\.zip' | awk 'NR==1')
           TAG_VERSION=$(echo $JSON_RESPONSE | grep -Po '"tag_name": "\K[^"]+')
           if [[ "$TAG_VERSION" == "${{ steps.prev_tag_version.outputs.tag }}" ]]; then
             echo "Skipping as the tag version is the same as the previous run."
