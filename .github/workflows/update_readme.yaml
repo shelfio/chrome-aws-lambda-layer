@@ -56,6 +56,11 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add readme.md
-          git commit -m "Update README with new version details [ci skip]"
-          git push
+          if ! git diff --quiet readme.md; then
+            git add readme.md
+            git commit -m "Update README with new version details [ci skip]"
+            git push
+            echo "README updated and pushed"
+          else
+            echo "No changes to README, skipping commit"
+          fi
