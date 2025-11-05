@@ -37,14 +37,19 @@ jobs:
         run: |
           TAG_VERSION=${{ env.TAG_VERSION }}
           ARN_BASE="arn:aws:lambda:"
-          ARN_SUFFIX=":764866452798:layer:chrome-aws-lambda:"
+          ACCOUNT_ID="764866452798"
 
           sed -i -e "s|Has Chromium v[0-9\.]*|Has Chromium $TAG_VERSION|g" readme.md
 
           for REGION in ${{ env.AWS_REGIONS }}; do
-            LAYER_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda --region $REGION --query 'LayerVersions[0].LayerVersionArn' --output text | grep -oE '[0-9]+$')
-            ARN="$ARN_BASE$REGION$ARN_SUFFIX$LAYER_VERSION"
-            sed -i -e "s|arn:aws:lambda:$REGION:[0-9]*:layer:chrome-aws-lambda:[0-9]*|$ARN|g" readme.md
+            X64_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda-x64 --region $REGION --query 'LayerVersions[0].Version' --output text 2>/dev/null || echo "1")
+            ARM64_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda-arm64 --region $REGION --query 'LayerVersions[0].Version' --output text 2>/dev/null || echo "1")
+
+            X64_ARN="$ARN_BASE$REGION:$ACCOUNT_ID:layer:chrome-aws-lambda-x64:$X64_VERSION"
+            ARM64_ARN="$ARN_BASE$REGION:$ACCOUNT_ID:layer:chrome-aws-lambda-arm64:$ARM64_VERSION"
+
+            sed -i -e "s|arn:aws:lambda:$REGION:[0-9]*:layer:chrome-aws-lambda-x64:[0-9]*|$X64_ARN|g" readme.md
+            sed -i -e "s|arn:aws:lambda:$REGION:[0-9]*:layer:chrome-aws-lambda-arm64:[0-9]*|$ARM64_ARN|g" readme.md
           done
 
       - name: Commit and Push
