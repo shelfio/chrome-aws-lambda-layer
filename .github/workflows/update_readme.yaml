@@ -1,5 +1,11 @@
 name: Update README
 
+# This workflow runs AFTER "Deploy Layers" completes successfully.
+# No version checking is needed here because:
+# 1. Deploy Layers already checks for new versions and skips if none exist
+# 2. Deploy Layers updates .tag_version before this workflow runs
+# 3. If this workflow is triggered, README should always be updated
+
 on:
 #  push:
 #    branches:
@@ -27,12 +33,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Check if update needed
-        id: check_update
+      - name: Get Latest Release Info
         run: |
           JSON_RESPONSE=$(curl -s https://api.github.com/repos/Sparticuz/chromium/releases/latest)
           TAG_VERSION=$(echo $JSON_RESPONSE | grep -Po '"tag_name": "\K[^"]+')
-          CURRENT_VERSION=$(cat .tag_version || echo '')
 
           # Get layer file sizes for both architectures and convert to MB
           X64_SIZE_BYTES=$(echo $JSON_RESPONSE | grep -Po '"name": "chromium-[^"]+-layer\.x64\.zip"[^}]*"size": \K[0-9]+' | head -1)
@@ -52,23 +56,9 @@ jobs:
             echo "ARM64_SIZE_MB=62" >> $GITHUB_ENV
           fi
 
-          if [[ "$TAG_VERSION" == "$CURRENT_VERSION" ]]; then
-            echo "No new version to update. Current: $CURRENT_VERSION, Latest: $TAG_VERSION"
-            echo "skip=true" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          echo "New version detected: $TAG_VERSION (current: $CURRENT_VERSION)"
-          echo "skip=false" >> $GITHUB_OUTPUT
           echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
 
-      - name: Get Latest Release URL and Tag Version
-        if: steps.check_update.outputs.skip == 'false'
-        run: |
-          echo "TAG_VERSION=${{ env.TAG_VERSION }}" >> $GITHUB_ENV
-
       - name: Update README
-        if: steps.check_update.outputs.skip == 'false'
         run: |
           TAG_VERSION=${{ env.TAG_VERSION }}
           X64_SIZE_MB=${{ env.X64_SIZE_MB }}
@@ -91,7 +81,6 @@ jobs:
           done
 
       - name: Commit and Push
-        if: steps.check_update.outputs.skip == 'false'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
