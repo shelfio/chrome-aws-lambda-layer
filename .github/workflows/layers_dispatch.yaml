@@ -34,65 +34,90 @@ jobs:
         id: latest_release
         run: |
           JSON_RESPONSE=$(curl -s https://api.github.com/repos/Sparticuz/chromium/releases/latest)
-          LATEST_RELEASE_URL=$(echo $JSON_RESPONSE | grep -Po '"browser_download_url": "\K[^"]+' | awk 'NR==1')
           TAG_VERSION=$(echo $JSON_RESPONSE | grep -Po '"tag_name": "\K[^"]+')
           if [[ "$TAG_VERSION" == "${{ steps.prev_tag_version.outputs.tag }}" ]]; then
             echo "Skipping as the tag version is the same as the previous run."
-            exit 78
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
           fi
-          echo "LATEST_RELEASE_URL=$LATEST_RELEASE_URL" >> $GITHUB_ENV
+          echo "skip=false" >> $GITHUB_OUTPUT
           echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
-          echo "FILENAME=chromium-$TAG_VERSION.zip" >> $GITHUB_ENV
+          echo "X64_URL=https://github.com/Sparticuz/chromium/releases/download/$TAG_VERSION/chromium-$TAG_VERSION-layer.x64.zip" >> $GITHUB_ENV
+          echo "ARM64_URL=https://github.com/Sparticuz/chromium/releases/download/$TAG_VERSION/chromium-$TAG_VERSION-layer.arm64.zip" >> $GITHUB_ENV
+          echo "X64_FILENAME=chromium-$TAG_VERSION-layer.x64.zip" >> $GITHUB_ENV
+          echo "ARM64_FILENAME=chromium-$TAG_VERSION-layer.arm64.zip" >> $GITHUB_ENV
 
       - name: Update Tag Version
+        if: steps.latest_release.outputs.skip == 'false'
         run: echo ${{ env.TAG_VERSION }} > .tag_version
 
       - name: Download Latest Release
+        if: steps.latest_release.outputs.skip == 'false'
         run: |
-          curl -LO ${{ env.LATEST_RELEASE_URL }}
-          FILEPATH=$(basename ${{ env.LATEST_RELEASE_URL }})
-          echo "FILEPATH=$FILEPATH" >> $GITHUB_ENV
+          curl -LO ${{ env.X64_URL }}
+          curl -LO ${{ env.ARM64_URL }}
 
       - name: Upload to S3
+        if: steps.latest_release.outputs.skip == 'false'
         run: |
           for REGION in ${{ env.AWS_REGIONS }}; do
             BUCKET_NAME="${{ env.S3_BUCKET_NAME }}-$REGION"
             aws configure set region $REGION
-            aws s3 cp ${{ env.FILEPATH  }} s3://$BUCKET_NAME/${{ env.FILENAME }} &
+            aws s3 cp ${{ env.X64_FILENAME }} s3://$BUCKET_NAME/${{ env.X64_FILENAME }} &
+            aws s3 cp ${{ env.ARM64_FILENAME }} s3://$BUCKET_NAME/${{ env.ARM64_FILENAME }} &
           done
           wait
 
       - name: Publish to AWS Regions with Permissions
+        if: steps.latest_release.outputs.skip == 'false'
         run: |
           for REGION in ${{ env.AWS_REGIONS }}; do
             BUCKET_NAME="${{ env.S3_BUCKET_NAME }}-$REGION"
-
             aws configure set region $REGION
 
             {
-              NEW_VERSION_NUMBER=$(aws lambda publish-layer-version \
-                --layer-name chrome-aws-lambda \
-                --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.FILENAME }} \
+              X64_VERSION=$(aws lambda publish-layer-version \
+                --layer-name chrome-aws-lambda-x64 \
+                --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.X64_FILENAME }} \
                 --region $REGION \
-                --compatible-architecture x86_64 \
-                --description "@sparticuz/chromium v${{ env.TAG_VERSION }} & Chromium v${{ env.TAG_VERSION }}" \
+                --compatible-architectures x86_64 \
+                --description "@sparticuz/chromium v${{ env.TAG_VERSION }} x64" \
                 --query Version \
                 --output text)
 
               aws lambda add-layer-version-permission \
                 --region "$REGION" \
-                --layer-name chrome-aws-lambda \
+                --layer-name chrome-aws-lambda-x64 \
                 --statement-id sid1 \
                 --action lambda:GetLayerVersion \
                 --principal '*' \
-                --version-number $NEW_VERSION_NUMBER
-              echo "Published and permissions added for ${{ env.FILENAME }} in $REGION"
+                --version-number $X64_VERSION
+
+              ARM64_VERSION=$(aws lambda publish-layer-version \
+                --layer-name chrome-aws-lambda-arm64 \
+                --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.ARM64_FILENAME }} \
+                --region $REGION \
+                --compatible-architectures arm64 \
+                --description "@sparticuz/chromium v${{ env.TAG_VERSION }} arm64" \
+                --query Version \
+                --output text)
+
+              aws lambda add-layer-version-permission \
+                --region "$REGION" \
+                --layer-name chrome-aws-lambda-arm64 \
+                --statement-id sid1 \
+                --action lambda:GetLayerVersion \
+                --principal '*' \
+                --version-number $ARM64_VERSION
+
+              echo "Published x64:$X64_VERSION and arm64:$ARM64_VERSION for $REGION"
             } &
           done
           wait
 
 
       - name: Commit Tag Version
+        if: steps.latest_release.outputs.skip == 'false'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
