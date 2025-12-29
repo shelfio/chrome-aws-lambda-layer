@@ -45,15 +45,11 @@ jobs:
           if [[ -n "$X64_SIZE_BYTES" ]]; then
             X64_SIZE_MB=$((X64_SIZE_BYTES / 1024 / 1024))
             echo "X64_SIZE_MB=$X64_SIZE_MB" >> $GITHUB_ENV
-          else
-            echo "X64_SIZE_MB=63" >> $GITHUB_ENV
           fi
 
           if [[ -n "$ARM64_SIZE_BYTES" ]]; then
             ARM64_SIZE_MB=$((ARM64_SIZE_BYTES / 1024 / 1024))
             echo "ARM64_SIZE_MB=$ARM64_SIZE_MB" >> $GITHUB_ENV
-          else
-            echo "ARM64_SIZE_MB=62" >> $GITHUB_ENV
           fi
 
           echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
