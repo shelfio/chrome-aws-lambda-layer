@@ -1,10 +1,10 @@
 # Google Chrome for AWS Lambda as a layer
 
-> 58 MB Google Chrome to fit inside AWS Lambda Layer compressed with Brotli
+> 66 MB (x64) / 64 MB (arm64) Chromium layer for AWS Lambda compressed with Brotli
 
 [Sparticuz/chromium](https://github.com/Sparticuz/chromium) published as a Lambda Layer.
 
-Tested with Node.js 16x/18x/20x. Compatible with x86_64 and arm64 architectures. Has Chromium v143.0.0
+Tested with Node.js 16x/18x/20x/22x. Compatible with x86_64 and arm64 architectures. Has Chromium v141.0.0
 
 ## Getting Started
 

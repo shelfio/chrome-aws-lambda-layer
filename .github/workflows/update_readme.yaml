@@ -1,5 +1,11 @@
 name: Update README
 
+# This workflow runs AFTER "Deploy Layers" completes successfully.
+# No version checking is needed here because:
+# 1. Deploy Layers already checks for new versions and skips if none exist
+# 2. Deploy Layers updates .tag_version before this workflow runs
+# 3. If this workflow is triggered, README should always be updated
+
 on:
 #  push:
 #    branches:
@@ -27,18 +33,36 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Get Latest Release URL and Tag Version
+      - name: Get Latest Release Info
         run: |
           JSON_RESPONSE=$(curl -s https://api.github.com/repos/Sparticuz/chromium/releases/latest)
           TAG_VERSION=$(echo $JSON_RESPONSE | grep -Po '"tag_name": "\K[^"]+')
+
+          # Get layer file sizes for both architectures and convert to MB
+          X64_SIZE_BYTES=$(echo $JSON_RESPONSE | grep -Po '"name": "chromium-[^"]+-layer\.x64\.zip"[^}]*"size": \K[0-9]+' | head -1)
+          ARM64_SIZE_BYTES=$(echo $JSON_RESPONSE | grep -Po '"name": "chromium-[^"]+-layer\.arm64\.zip"[^}]*"size": \K[0-9]+' | head -1)
+
+          if [[ -n "$X64_SIZE_BYTES" ]]; then
+            X64_SIZE_MB=$((X64_SIZE_BYTES / 1024 / 1024))
+            echo "X64_SIZE_MB=$X64_SIZE_MB" >> $GITHUB_ENV
+          fi
+
+          if [[ -n "$ARM64_SIZE_BYTES" ]]; then
+            ARM64_SIZE_MB=$((ARM64_SIZE_BYTES / 1024 / 1024))
+            echo "ARM64_SIZE_MB=$ARM64_SIZE_MB" >> $GITHUB_ENV
+          fi
+
           echo "TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
 
       - name: Update README
         run: |
           TAG_VERSION=${{ env.TAG_VERSION }}
+          X64_SIZE_MB=${{ env.X64_SIZE_MB }}
+          ARM64_SIZE_MB=${{ env.ARM64_SIZE_MB }}
           ARN_BASE="arn:aws:lambda:"
           ACCOUNT_ID="764866452798"
 
+          sed -i -e "s|> .*compressed with Brotli|> ${X64_SIZE_MB} MB (x64) / ${ARM64_SIZE_MB} MB (arm64) Chromium layer for AWS Lambda compressed with Brotli|g" readme.md
           sed -i -e "s|Has Chromium v[0-9\.]*|Has Chromium $TAG_VERSION|g" readme.md
 
           for REGION in ${{ env.AWS_REGIONS }}; do
