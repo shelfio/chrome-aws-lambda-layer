@@ -77,7 +77,7 @@ jobs:
 
             {
               X64_VERSION=$(aws lambda publish-layer-version \
-                --layer-name chrome-aws-lambda-x64 \
+                --layer-name chrome-aws-lambda \
                 --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.X64_FILENAME }} \
                 --region $REGION \
                 --compatible-architectures x86_64 \
@@ -87,7 +87,7 @@ jobs:
 
               aws lambda add-layer-version-permission \
                 --region "$REGION" \
-                --layer-name chrome-aws-lambda-x64 \
+                --layer-name chrome-aws-lambda \
                 --statement-id sid1 \
                 --action lambda:GetLayerVersion \
                 --principal '*' \
