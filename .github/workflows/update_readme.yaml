@@ -39,15 +39,16 @@ jobs:
           TAG_VERSION=$(echo $JSON_RESPONSE | grep -Po '"tag_name": "\K[^"]+')
 
           # Get layer file sizes for both architectures and convert to MB
-          X64_SIZE_BYTES=$(echo $JSON_RESPONSE | grep -Po '"name": "chromium-[^"]+-layer\.x64\.zip"[^}]*"size": \K[0-9]+' | head -1)
-          ARM64_SIZE_BYTES=$(echo $JSON_RESPONSE | grep -Po '"name": "chromium-[^"]+-layer\.arm64\.zip"[^}]*"size": \K[0-9]+' | head -1)
+          # Use jq for more reliable JSON parsing
+          X64_SIZE_BYTES=$(echo "$JSON_RESPONSE" | jq -r '.assets[] | select(.name | contains("layer") and contains(".x64.zip")) | .size' | head -1)
+          ARM64_SIZE_BYTES=$(echo "$JSON_RESPONSE" | jq -r '.assets[] | select(.name | contains("layer") and contains(".arm64.zip")) | .size' | head -1)
 
-          if [[ -n "$X64_SIZE_BYTES" ]]; then
+          if [[ -n "$X64_SIZE_BYTES" && "$X64_SIZE_BYTES" != "null" ]]; then
             X64_SIZE_MB=$((X64_SIZE_BYTES / 1024 / 1024))
             echo "X64_SIZE_MB=$X64_SIZE_MB" >> $GITHUB_ENV
           fi
 
-          if [[ -n "$ARM64_SIZE_BYTES" ]]; then
+          if [[ -n "$ARM64_SIZE_BYTES" && "$ARM64_SIZE_BYTES" != "null" ]]; then
             ARM64_SIZE_MB=$((ARM64_SIZE_BYTES / 1024 / 1024))
             echo "ARM64_SIZE_MB=$ARM64_SIZE_MB" >> $GITHUB_ENV
           fi
