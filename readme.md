@@ -12,12 +12,12 @@ Click on Layers and choose "Add a layer", and "Provide a layer version ARN" and 
 
 **For x86_64 (Intel/AMD)**:
 ```
-arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:2
+arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:1106010
 ```
 
 **For arm64 (Graviton2)**:
 ```
-arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:3
+arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:4
 ```
 
 When importing the module within lambda, make sure you import `@sparticuz/chromium` not `chrome-aws-lambda`
@@ -41,14 +41,14 @@ const chromium = require('@sparticuz/chromium');
 **For x86_64**:
 ```ts
 layers: [LayerVersion.fromLayerVersionArn(this, 'chromium-lambda-layer',
-  'arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:2'
+  'arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:1106010'
 )]
 ```
 
 **For arm64**:
 ```ts
 layers: [LayerVersion.fromLayerVersionArn(this, 'chromium-lambda-layer',
-  'arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:3'
+  'arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:4'
 )]
 ```
 
@@ -59,41 +59,41 @@ You can just use a regular ES6 or CommonJS import statement for `@sparticuz/chro
 
 ### x86_64 (Intel/AMD)
 
-* ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda:2`
-* ap-northeast-2: `arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda:2`
-* ap-south-1: `arn:aws:lambda:ap-south-1:764866452798:layer:chrome-aws-lambda:2`
-* ap-southeast-1: `arn:aws:lambda:ap-southeast-1:764866452798:layer:chrome-aws-lambda:2`
-* ap-southeast-2: `arn:aws:lambda:ap-southeast-2:764866452798:layer:chrome-aws-lambda:2`
-* ca-central-1: `arn:aws:lambda:ca-central-1:764866452798:layer:chrome-aws-lambda:2`
-* eu-north-1: `arn:aws:lambda:eu-north-1:764866452798:layer:chrome-aws-lambda:2`
-* eu-central-1: `arn:aws:lambda:eu-central-1:764866452798:layer:chrome-aws-lambda:2`
-* eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda:2`
-* eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda:2`
-* eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda:2`
-* sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda:2`
-* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:2`
-* us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda:2`
-* us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda:2`
-* us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda:2`
+* ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda:1106010`
+* ap-northeast-2: `arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda:109599`
+* ap-south-1: `arn:aws:lambda:ap-south-1:764866452798:layer:chrome-aws-lambda:1106010`
+* ap-southeast-1: `arn:aws:lambda:ap-southeast-1:764866452798:layer:chrome-aws-lambda:1106010`
+* ap-southeast-2: `arn:aws:lambda:ap-southeast-2:764866452798:layer:chrome-aws-lambda:1106010`
+* ca-central-1: `arn:aws:lambda:ca-central-1:764866452798:layer:chrome-aws-lambda:1106010`
+* eu-north-1: `arn:aws:lambda:eu-north-1:764866452798:layer:chrome-aws-lambda:1106010`
+* eu-central-1: `arn:aws:lambda:eu-central-1:764866452798:layer:chrome-aws-lambda:1106010`
+* eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda:1106010`
+* eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda:1106010`
+* eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda:1106010`
+* sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda:1106010`
+* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:1106010`
+* us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda:1106010`
+* us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda:1106010`
+* us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda:1106010`
 
 ### arm64 (Graviton2)
 
-* ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* ap-northeast-2: `arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda-arm64:3`
-* ap-south-1: `arn:aws:lambda:ap-south-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* ap-southeast-1: `arn:aws:lambda:ap-southeast-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* ap-southeast-2: `arn:aws:lambda:ap-southeast-2:764866452798:layer:chrome-aws-lambda-arm64:3`
-* ca-central-1: `arn:aws:lambda:ca-central-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* eu-north-1: `arn:aws:lambda:eu-north-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* eu-central-1: `arn:aws:lambda:eu-central-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda-arm64:3`
-* eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda-arm64:3`
-* sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda-arm64:3`
-* us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda-arm64:3`
-* us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda-arm64:3`
+* ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* ap-northeast-2: `arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda-arm64:4`
+* ap-south-1: `arn:aws:lambda:ap-south-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* ap-southeast-1: `arn:aws:lambda:ap-southeast-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* ap-southeast-2: `arn:aws:lambda:ap-southeast-2:764866452798:layer:chrome-aws-lambda-arm64:4`
+* ca-central-1: `arn:aws:lambda:ca-central-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* eu-north-1: `arn:aws:lambda:eu-north-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* eu-central-1: `arn:aws:lambda:eu-central-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda-arm64:4`
+* eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda-arm64:4`
+* sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda-arm64:4`
+* us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda-arm64:4`
+* us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda-arm64:4`
 
 ## License
 
