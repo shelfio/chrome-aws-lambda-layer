@@ -67,8 +67,12 @@ jobs:
           sed -i -e "s|Has Chromium v[0-9\.]*|Has Chromium $TAG_VERSION|g" readme.md
 
           for REGION in ${{ env.AWS_REGIONS }}; do
-            X64_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda --region $REGION --query 'LayerVersions[0].Version' --output text 2>/dev/null || echo "1")
-            ARM64_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda-arm64 --region $REGION --query 'LayerVersions[0].Version' --output text 2>/dev/null || echo "1")
+            # Get only the first line and trim whitespace to ensure single version number
+            X64_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda --region $REGION --query 'LayerVersions[0].Version' --output text 2>/dev/null | tr -d '\n\r' | awk '{print $1}')
+            if [[ -z "$X64_VERSION" ]]; then X64_VERSION="1"; fi
+
+            ARM64_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda-arm64 --region $REGION --query 'LayerVersions[0].Version' --output text 2>/dev/null | tr -d '\n\r' | awk '{print $1}')
+            if [[ -z "$ARM64_VERSION" ]]; then ARM64_VERSION="1"; fi
 
             echo "Region: $REGION, x64 Version: $X64_VERSION, arm64 Version: $ARM64_VERSION"
 
