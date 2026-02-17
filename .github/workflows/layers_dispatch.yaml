@@ -81,7 +81,7 @@ jobs:
                 --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.X64_FILENAME }} \
                 --region $REGION \
                 --compatible-architectures x86_64 \
-                --description "@sparticuz/chromium v${{ env.TAG_VERSION }} x64" \
+                --description "@sparticuz/chromium ${{ env.TAG_VERSION }} x64" \
                 --query Version \
                 --output text)
 
@@ -98,7 +98,7 @@ jobs:
                 --content S3Bucket=$BUCKET_NAME,S3Key=${{ env.ARM64_FILENAME }} \
                 --region $REGION \
                 --compatible-architectures arm64 \
-                --description "@sparticuz/chromium v${{ env.TAG_VERSION }} arm64" \
+                --description "@sparticuz/chromium ${{ env.TAG_VERSION }} arm64" \
                 --query Version \
                 --output text)
 
