@@ -70,6 +70,8 @@ jobs:
             X64_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda --region $REGION --query 'LayerVersions[0].Version' --output text 2>/dev/null || echo "1")
             ARM64_VERSION=$(aws lambda list-layer-versions --layer-name chrome-aws-lambda-arm64 --region $REGION --query 'LayerVersions[0].Version' --output text 2>/dev/null || echo "1")
 
+            echo "Region: $REGION, x64 Version: $X64_VERSION, arm64 Version: $ARM64_VERSION"
+
             X64_ARN="$ARN_BASE$REGION:$ACCOUNT_ID:layer:chrome-aws-lambda:$X64_VERSION"
             ARM64_ARN="$ARN_BASE$REGION:$ACCOUNT_ID:layer:chrome-aws-lambda-arm64:$ARM64_VERSION"
 
