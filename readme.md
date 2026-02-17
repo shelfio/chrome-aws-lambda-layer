@@ -1,6 +1,6 @@
 # Google Chrome for AWS Lambda as a layer
 
->  MB (x64) /  MB (arm64) Chromium layer for AWS Lambda compressed with Brotli
+> 63 MB (x64) / 62 MB (arm64) Chromium layer for AWS Lambda compressed with Brotli
 
 [Sparticuz/chromium](https://github.com/Sparticuz/chromium) published as a Lambda Layer.
 
@@ -17,7 +17,7 @@ arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:2
 
 **For arm64 (Graviton2)**:
 ```
-arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:2
+arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:3
 ```
 
 When importing the module within lambda, make sure you import `@sparticuz/chromium` not `chrome-aws-lambda`
@@ -48,7 +48,7 @@ layers: [LayerVersion.fromLayerVersionArn(this, 'chromium-lambda-layer',
 **For arm64**:
 ```ts
 layers: [LayerVersion.fromLayerVersionArn(this, 'chromium-lambda-layer',
-  'arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:2'
+  'arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:3'
 )]
 ```
 
@@ -78,22 +78,22 @@ You can just use a regular ES6 or CommonJS import statement for `@sparticuz/chro
 
 ### arm64 (Graviton2)
 
-* ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* ap-northeast-2: `arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda-arm64:2`
-* ap-south-1: `arn:aws:lambda:ap-south-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* ap-southeast-1: `arn:aws:lambda:ap-southeast-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* ap-southeast-2: `arn:aws:lambda:ap-southeast-2:764866452798:layer:chrome-aws-lambda-arm64:2`
-* ca-central-1: `arn:aws:lambda:ca-central-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* eu-north-1: `arn:aws:lambda:eu-north-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* eu-central-1: `arn:aws:lambda:eu-central-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda-arm64:2`
-* eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda-arm64:2`
-* sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda-arm64:2`
-* us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda-arm64:2`
-* us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda-arm64:2`
+* ap-northeast-1: `arn:aws:lambda:ap-northeast-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* ap-northeast-2: `arn:aws:lambda:ap-northeast-2:764866452798:layer:chrome-aws-lambda-arm64:3`
+* ap-south-1: `arn:aws:lambda:ap-south-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* ap-southeast-1: `arn:aws:lambda:ap-southeast-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* ap-southeast-2: `arn:aws:lambda:ap-southeast-2:764866452798:layer:chrome-aws-lambda-arm64:3`
+* ca-central-1: `arn:aws:lambda:ca-central-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* eu-north-1: `arn:aws:lambda:eu-north-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* eu-central-1: `arn:aws:lambda:eu-central-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* eu-west-1: `arn:aws:lambda:eu-west-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* eu-west-2: `arn:aws:lambda:eu-west-2:764866452798:layer:chrome-aws-lambda-arm64:3`
+* eu-west-3: `arn:aws:lambda:eu-west-3:764866452798:layer:chrome-aws-lambda-arm64:3`
+* sa-east-1: `arn:aws:lambda:sa-east-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* us-east-1: `arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* us-east-2: `arn:aws:lambda:us-east-2:764866452798:layer:chrome-aws-lambda-arm64:3`
+* us-west-1: `arn:aws:lambda:us-west-1:764866452798:layer:chrome-aws-lambda-arm64:3`
+* us-west-2: `arn:aws:lambda:us-west-2:764866452798:layer:chrome-aws-lambda-arm64:3`
 
 ## License
 
